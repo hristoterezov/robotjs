@@ -58,6 +58,7 @@ void win32KeyEvent(int key, MMKeyFlags flags);
 
 /* Toggles the given key down or up. */
 void toggleKeyCode(MMKeyCode code, const bool down, MMKeyFlags flags);
+void toggleKeyCode2(int code, const bool down, MMKeyFlags flags);
 
 /* Toggles the key down and then up. */
 void tapKeyCode(MMKeyCode code, MMKeyFlags flags);

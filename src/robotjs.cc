@@ -589,6 +589,64 @@ NAN_METHOD(keyToggle)
 	info.GetReturnValue().Set(Nan::New(1));
 }
 
+NAN_METHOD(keyToggle2)
+{
+    MMKeyFlags flags = MOD_NONE;
+
+	bool down;
+
+	//Get arguments from JavaScript.
+	int key = info[0]->Int32Value();
+
+	//Check and confirm number of arguments.
+	switch (info.Length())
+	{
+		case 3:
+			//Get key modifier.
+			switch (GetFlagsFromValue(info[2], &flags))
+			{
+				case -1:
+					return Nan::ThrowError("Null pointer in key flag.");
+					break;
+				case -2:
+					return Nan::ThrowError("Invalid key flag specified.");
+					break;
+			}
+			break;
+		case 2:
+			break;
+		default:
+			return Nan::ThrowError("Invalid number of arguments.");
+	}
+
+	//Get down value if provided.
+	if (info.Length() > 1)
+	{
+		char *d;
+
+		Nan::Utf8String dstr(info[1]);
+		d = *dstr;
+
+		if (strcmp(d, "down") == 0)
+		{
+			down = true;
+		}
+		else if (strcmp(d, "up") == 0)
+		{
+			down = false;
+		}
+		else
+		{
+			return Nan::ThrowError("Invalid key state specified.");
+		}
+	}
+
+    toggleKeyCode2(key, down, flags);
+    microsleep(keyboardDelay);
+
+	info.GetReturnValue().Set(Nan::New(1));
+}
+
 NAN_METHOD(typeString)
 {
 	char *str;
@@ -865,6 +923,9 @@ NAN_MODULE_INIT(InitAll)
 
 	Nan::Set(target, Nan::New("keyToggle").ToLocalChecked(),
 		Nan::GetFunction(Nan::New<FunctionTemplate>(keyToggle)).ToLocalChecked());
+
+    Nan::Set(target, Nan::New("keyToggle2").ToLocalChecked(),
+    		Nan::GetFunction(Nan::New<FunctionTemplate>(keyToggle2)).ToLocalChecked());
 
 	Nan::Set(target, Nan::New("typeString").ToLocalChecked(),
 		Nan::GetFunction(Nan::New<FunctionTemplate>(typeString)).ToLocalChecked());
