@@ -4,7 +4,7 @@ module.exports = robotjs;
 
 module.exports.screen = {};
 
-function bitmap(width, height, byteWidth, bitsPerPixel, bytesPerPixel, image) 
+function bitmap(width, height, byteWidth, bitsPerPixel, bytesPerPixel, image)
 {
     this.width = width;
     this.height = height;
@@ -27,7 +27,7 @@ module.exports.screen.capture = function(x, y, width, height)
     {
         b = robotjs.captureScreen(x, y, width, height);
     }
-    else 
+    else
     {
         b = robotjs.captureScreen();
     }

@@ -9,8 +9,8 @@
 /* Some generic, cross-platform types. */
 
 struct _MMPoint {
-	size_t x;
-	size_t y;
+	int x;
+	int y;
 };
 
 typedef struct _MMPoint MMPoint;
@@ -29,7 +29,7 @@ struct _MMRect {
 
 typedef struct _MMRect MMRect;
 
-H_INLINE MMPoint MMPointMake(size_t x, size_t y)
+H_INLINE MMPoint MMPointMake(int x, int y)
 {
 	MMPoint point;
 	point.x = x;
@@ -58,11 +58,11 @@ H_INLINE MMRect MMRectMake(size_t x, size_t y, size_t width, size_t height)
 #if defined(IS_MACOSX)
 
 #define CGPointFromMMPoint(p) CGPointMake((CGFloat)(p).x, (CGFloat)(p).y)
-#define MMPointFromCGPoint(p) MMPointMake((size_t)(p).x, (size_t)(p).y)
+#define MMPointFromCGPoint(p) MMPointMake((p).x,(p).y)
 
 #elif defined(IS_WINDOWS)
 
-#define MMPointFromPOINT(p) MMPointMake((size_t)p.x, (size_t)p.y)
+#define MMPointFromPOINT(p) MMPointMake(p.x, p.y)
 
 #endif
 

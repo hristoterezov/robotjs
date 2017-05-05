@@ -6,7 +6,7 @@
   "typings": "index.d.ts",
   "scripts": {
     "test": "node test/all.js",
-    "install": "prebuild-install || node-gyp rebuild"
+    "install": "node-gyp rebuild"
   },
   "repository": {
     "type": "git",

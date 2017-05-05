@@ -10,6 +10,7 @@
 #include "MMBitmap.h"
 #include "snprintf.h"
 #include "microsleep.h"
+#include <stdio.h>
 #if defined(USE_X11)
 	#include "xdisplay.h"
 #endif
@@ -90,12 +91,15 @@ NAN_METHOD(dragMouse)
 
 NAN_METHOD(moveMouse)
 {
+	fprintf(stdout, "in createus\n") ;
+	// printf("Ran my function.\n");
+	// fflush(stdout);
 	if (info.Length() != 2)
 	{
 		return Nan::ThrowError("Invalid number of arguments.");
 	}
-	size_t x = info[0]->Int32Value();
-	size_t y = info[1]->Int32Value();
+	int x = info[0]->Int32Value();
+	int y = info[1]->Int32Value();
 
 	MMPoint point;
 	point = MMPointMake(x, y);
@@ -247,7 +251,7 @@ NAN_METHOD(scrollMouse)
 	{
     	return Nan::ThrowError("Invalid number of arguments.");
 	}
-	
+
 	int x = info[0]->Int32Value();
 	int y = info[1]->Int32Value();
 
